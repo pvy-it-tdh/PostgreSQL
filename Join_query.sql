@@ -16,8 +16,8 @@ CREATE TABLE customer (
     FOREIGN KEY (salesman_id) REFERENCES SALESMAN (salesman_id)
 );
 
-CREATE table Orders (
-	ord_no int primary key,
+CREATE TABLE Orders (
+	ord_no int PRIMARY KEY,
 	purch_amt float,
 	ord_date date,
 	customer_id int,
@@ -65,70 +65,72 @@ VALUES
     (70013, 3045.6, '2012-04-25', 3002, 5001);
 
 
-select * from customer;
+SELECT * FROM customer;
 
 
 --- Trả về tên của salesman, tên của khách hàng sống cùng thành phố
 
-Select SALESMAN.name AS "Salesman",
+SELECT SALESMAN.name AS "Salesman",
 customer.cust_name,customer.city
 FROM SALESMAN, customer
 WHERE SALESMAN.city=customer.city;
-select * from orders
+
+
+SELECT * FROM orders
 --Trả về ord_no, purch_amt, cust_name, city của những đơn hàng có số 
 --lượng(purch_amt) trong khoảng từ 500 tới 2000.
-Select a.ord_no, a.purch_amt, b.cust_name,b.city
-from Orders a, customer b
+SELECT a.ord_no, a.purch_amt, b.cust_name,b.city
+FROM Orders a, customer b
 WHERE a.customer_id=b.customer_id
-AND a.purch_amt Between 500 and 2000;
+AND a.purch_amt BETWEEN 500 AND 2000;
 
 --Truy vấn những khách hàng và 
 --người bán hàng tương ứng với khách hàng đó, trả về tên khách hàng, thành phố, tên 
 --của người bán hàng và hoa hồng(commission)
 
-select a.cust_name AS "Customer Name",
+SELECT a.cust_name AS "Customer Name",
 a.city, b.name AS "Salesman",b.commission
-from customer a, salesman b
-where b.salesman_id=a.salesman_id;
+FROM customer a, salesman b
+WHERE b.salesman_id=a.salesman_id;
 
 -- Câu này có 1 cách viết nữa là 
-select a.cust_name AS "Customer Name",
+SELECT a.cust_name AS "Customer Name",
 a.city, b.name AS "Salesman",b.commission
-from customer a
-inner join salesman b 
-on b.salesman_id=a.salesman_id;
+FROM customer a
+INNER JOIN salesman b 
+ON b.salesman_id=a.salesman_id;
 
 --Sử dụng bảng Salesman và Customer, yêu cầu truy vấn những nhân viên bán hàng 
 --đã nhận được hoa hồng hơn 12 phần trăm từ công ty. Trả về tên khách hàng, thành 
 --phố, salesman, hoa hồng.
-select a.cust_name AS "Customer Name",
+SELECT a.cust_name AS "Customer Name",
 a.city, b.name AS "Salesman",b.commission
 from customer a
-inner join salesman b
-on b.salesman_id=a.salesman_id
-where b.commission >0.12;
+INNER JOIN salesman b
+ON b.salesman_id=a.salesman_id
+WHERE b.commission >0.12;
 --Sử dụng bảng Salesman và Customer, yêu cầu truy vấn xác định những thành phố
 --mà người bán hàng và khách hàng tương ứng không sống cùng thành phố và nhận 
 --được hoa hồng hơn 12% từ công ty
 --Trả về tên khách hàng, thành phố của khách hàng, tên người bán hàng, thành phố
 --của người bán hàng, hoa hồng
-select a.cust_name AS "Customer Name",
+SELECT a.cust_name AS "Customer Name",
 a.city, b.name AS "Salesman",b.city,
 b.commission
-from customer a
-inner join salesman b
-on b.salesman_id=a.salesman_id
-where b.commission >0.12 and a.city != b.city;
+FROM customer a
+INNER JOIN salesman b
+ON b.salesman_id=a.salesman_id
+WHERE b.commission >0.12 AND a.city != b.city;
 
 --Sử dụng bảng orders, customer, salesman, yêu cầu truy vấn thông tin chi tiết của 
 --đơn hàng. Trả về ord_no, ord_date, purch_amt, Customer Name, grade, Salesman, 
 --commission
 
-select a.ord_no,a.ord_date,a.purch_amt,
+SELECT a.ord_no,a.ord_date,a.purch_amt,
 b.cust_name AS "Customer Name", b.grade,
 c.name AS "Salesman", c.commission
-from orders a
-Inner join customer b
+FROM orders a
+INNER JOIN customer b
 on a.customer_id= b.customer_id
-inner join salesman c
-on  b.salesman_id= c. salesman_id;
+INNER JOIN salesman c
+ON  b.salesman_id= c. salesman_id;
