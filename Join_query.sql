@@ -1,3 +1,5 @@
+
+USE database luyensql;
 -- Tạo bảng SALESMAN
 CREATE TABLE SALESMAN (
     salesman_id SERIAL PRIMARY KEY,  -- SERIAL tự động tăng giá trị
@@ -134,3 +136,13 @@ INNER JOIN customer b
 on a.customer_id= b.customer_id
 INNER JOIN salesman c
 ON  b.salesman_id= c. salesman_id;
+
+--Sử dụng bảng customer và salesman, yêu cầu truy vấn để hiển thị tên khách hàng, 
+--thành phố khách hàng, lớp, nhân viên bán hàng, thành phố nhân viên bán hàng. Các 
+--kết quả phải được sắp xếp theo tăng dần customer_id
+SELECT a.cust_name,a.city,a.grade,
+b.name AS "Salesman",b.city 
+FROM customer a 
+LEFT JOIN salesman b 
+ON a.salesman_id=b.salesman_id 
+order by a.customer_id;
