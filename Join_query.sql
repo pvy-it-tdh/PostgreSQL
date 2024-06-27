@@ -101,4 +101,34 @@ on b.salesman_id=a.salesman_id;
 --Sử dụng bảng Salesman và Customer, yêu cầu truy vấn những nhân viên bán hàng 
 --đã nhận được hoa hồng hơn 12 phần trăm từ công ty. Trả về tên khách hàng, thành 
 --phố, salesman, hoa hồng.
+select a.cust_name AS "Customer Name",
+a.city, b.name AS "Salesman",b.commission
+from customer a
+inner join salesman b
+on b.salesman_id=a.salesman_id
+where b.commission >0.12;
+--Sử dụng bảng Salesman và Customer, yêu cầu truy vấn xác định những thành phố
+--mà người bán hàng và khách hàng tương ứng không sống cùng thành phố và nhận 
+--được hoa hồng hơn 12% từ công ty
+--Trả về tên khách hàng, thành phố của khách hàng, tên người bán hàng, thành phố
+--của người bán hàng, hoa hồng
+select a.cust_name AS "Customer Name",
+a.city, b.name AS "Salesman",b.city,
+b.commission
+from customer a
+inner join salesman b
+on b.salesman_id=a.salesman_id
+where b.commission >0.12 and a.city != b.city;
 
+--Sử dụng bảng orders, customer, salesman, yêu cầu truy vấn thông tin chi tiết của 
+--đơn hàng. Trả về ord_no, ord_date, purch_amt, Customer Name, grade, Salesman, 
+--commission
+
+select a.ord_no,a.ord_date,a.purch_amt,
+b.cust_name AS "Customer Name", b.grade,
+c.name AS "Salesman", c.commission
+from orders a
+Inner join customer b
+on a.customer_id= b.customer_id
+inner join salesman c
+on  b.salesman_id= c. salesman_id;
