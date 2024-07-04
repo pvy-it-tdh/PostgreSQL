@@ -146,3 +146,6 @@ FROM customer a
 LEFT JOIN salesman b 
 ON a.salesman_id=b.salesman_id 
 order by a.customer_id;
+-- Sử dụng bảng customer và salesman, yêu cầu truy vấn những khách hàng có grade 
+-- < 300. Trả về cust_name, customer city, grade, Salesman, salesmancity. Các kết 
+-- quả phải được sắp xếp theo tăng dần customer_id
