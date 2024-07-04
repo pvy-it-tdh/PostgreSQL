@@ -64,3 +64,15 @@ CREATE TABLE ShoppingCart(
 	FOREIGN KEY(product_id) REFERENCES Products(product_id),
 	FOREIGN KEY(user_id) REFERENCES Users(user_id)
 );
+CREATE TABLE CartItems(
+	cartItem_id SERIAL PRIMARY KEY,
+	cart_id INT,
+	product_id INT,
+	addDate Date,
+	quantity INT,
+	totalprice DOUBLE PRECISION,
+	discount DOUBLE PRECISION,
+	finalPrice DOUBLE PRECISION,
+	FOREIGN KEY(product_id) REFERENCES Products(product_id),
+	FOREIGN KEY(cart_id) REFERENCES ShoppingCart(cart_id)
+);
